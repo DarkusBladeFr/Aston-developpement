@@ -1,6 +1,6 @@
 var readlineSync = require('readline-sync');
 function choose() {
-    console.log("1 - ajouter\n2 - retirer\n3 - visualier");
+    console.log("1 - ajouter\n2 - retirer\n3 - visualier\n4 - quitter");
     var choice = readlineSync.question("Que désirez-vous faire ?");
     switch(choice) {
         case 1:
@@ -14,8 +14,10 @@ function choose() {
             break;
         case 4:
             return;
-        console.warn("saisissez un nombre entier entre 1 et 4 !");
-        choose();
+        default:
+            console.warn("saisissez un nombre entier entre 1 et 4 !");
+            choose();
+        break;
     }
 }
 function add(list){
@@ -25,18 +27,24 @@ function add(list){
     list.push([name,prix,quantity]);
 }
 function remove(list){
-    var prodNum = readlineSync.question("Quel produit voulez-vous supprimer ?");
-    let exist = false;
-    list.forEach(ligne => {
-        ligne.forEach(element => {
-            if(element == prodNum) exist = true;
-        });
-    });
-    if(exist) {
-        list.pop(prodNum);
-        console.log("Le produit a été supprimé")
+    var prodName = readlineSync.question("Quel produit voulez-vous supprimer ? ");
+    let indexToRemove = -1;
+    for (let i = 0; i < list.length; i++) {
+        if (list[i][0] === prodName) {
+            indexToRemove = i;
+            break;
+        }
+    }
+    if (indexToRemove !== -1) {
+        list.splice(indexToRemove, 1);
+        console.log("Le produit a été supprimé");
     } else {
         console.warn("Le produit indiqué n'existe pas");
     }
 }
-function show(){}
+function show(list){
+    list.forEach(element => {
+        console.log(element);
+    });
+}
+export default { choose };
