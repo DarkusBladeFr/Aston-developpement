@@ -1,4 +1,4 @@
-import functions from "./src/functions";
+import functions from "./src/functions.js";
 const listProd = [];
 
 listProd.push(["stylo", 9.99, 2]);
