@@ -1,23 +1,25 @@
-var readlineSync = require('readline-sync');
-function choose() {
-    console.log("1 - ajouter\n2 - retirer\n3 - visualier\n4 - quitter");
-    var choice = readlineSync.question("Que désirez-vous faire ?");
-    switch(choice) {
-        case 1:
-            add(list);
+import readlineSync from 'readline-sync';
+function choose(list) {
+    while(true) {
+        console.log("1 - ajouter\n2 - retirer\n3 - visualier\n4 - quitter");
+        var choice = parseInt(readlineSync.question("Que désirez-vous faire ?"));
+        switch(choice) {
+            case 1:
+                add(list);
+                break;
+            case 2:
+                remove(list);
+                break;
+            case 3:
+                show(list);
+                break;
+            case 4:
+                return;
+            default:
+                console.warn("saisissez un nombre entier entre 1 et 4 !");
+                choose();
             break;
-        case 2:
-            remove(list);
-            break;
-        case 3:
-            show(list);
-            break;
-        case 4:
-            return;
-        default:
-            console.warn("saisissez un nombre entier entre 1 et 4 !");
-            choose();
-        break;
+        }
     }
 }
 function add(list){
